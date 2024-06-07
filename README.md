@@ -1,8 +1,8 @@
-# Proyect Ventas
+# Proyect Ventas SystemBlue
 
-PARA CORRER EL PROGRAMA DEBES SEGUIR LAS SIGUIENTES INSTRUCCIONES
+Para correr el programa debes seguir las siguientes instrucciones
 
 ```sh
-cd Dev_Platzi/Proyecto_Ingles
+cd Dev_Platzi/Proyect_Original
 python3 main.py
 ```
