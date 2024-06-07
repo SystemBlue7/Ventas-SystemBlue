@@ -1,12 +1,26 @@
 import sys
-clientes = ['Cristian','David','Marcela','Hugo']
+clientes = [
+    {
+        'nombre': 'Cristian',
+        'empresa': 'Google',
+        'correo': 'cristian@google.com',
+        'cargo': 'Gerente',
+    },
+    {
+        'nombre': 'David',
+        'empresa': 'Amazon',
+        'correo': 'david@Amazon.com',
+        'cargo': 'Desarrollador',
+    }
+]
 
-def crear_cliente(nombre):
+
+def crear_cliente(cliente):
     global clientes
     
-    if nombre not in clientes:
-        clientes.append(nombre)
-        print(f'El Cliente {nombre} fue agregado exitosamente!\n')
+    if cliente not in clientes:
+        clientes.append(cliente)
+        print(f'El Cliente fue agregado exitosamente!\n')
     else:
         print('=> El Cliente Ya Esta Creado en el Sistema')
 
@@ -16,8 +30,14 @@ def mostrar_clientes():
 
     print('Este Es El Listado De Clientes En el Sistema')
     print("*" * 45, '\n')
+    print('Id   '+ "Nombre   "+ "Empresa   "+ 'Correo   '+ 'Cargo')
     for n, c in enumerate(clientes, start= 1):
-        print(f'Cliente numero {n}: {c}')
+        print('{num} | {nombre} | {empresa} | {correo} | {cargo}'.format(
+            num = n,
+            nombre = c['nombre'],
+            empresa = c['empresa'],
+            correo = c['correo'],
+            cargo = c['cargo']))
     print("")
 
 
@@ -55,6 +75,25 @@ def mensaje():
 
 def mensaje_2():
     print('=> Debe ingresar el nombre del Cliente\n=> si no quiere ingresar un nombre digite ¡salir!\n')
+
+
+def _cliente_avanzado(nombre_cliente):
+    datos = None
+
+    while not datos:
+        datos = input(f'Cual es el {nombre_cliente}\n=>')
+
+        return datos
+
+
+def _datos_cliente():
+    cliente = {
+          'nombre':_cliente_avanzado('nombre'),
+          'empresa':_cliente_avanzado('empresa'),
+          'correo':_cliente_avanzado('correo'),
+          'cargo':_cliente_avanzado('cargo'),
+    }
+    return cliente
 
 
 def _nuevo_cliente():
@@ -95,8 +134,9 @@ if __name__ == "__main__":
     dato = int(input())
 
     if dato == 1:
-        nombre_cliente = _nuevo_cliente()
-        crear_cliente(nombre_cliente)
+        cliente = _datos_cliente()
+
+        crear_cliente(cliente)
         mostrar_clientes()
     elif dato == 2:
         mostrar_clientes()
