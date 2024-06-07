@@ -1,3 +1,4 @@
+import sys
 clientes = "Cristian,David,Marcela,Hugo,"
 
 def crear_cliente(nombre):
@@ -56,7 +57,18 @@ def mensaje():
 
 
 def _nuevo_cliente():
-    return input("Digite el nombre del nuevo cliente: ").capitalize()
+    nombre_cliente = None
+
+    while not nombre_cliente:
+        print('=> Debe ingresar el nombre del Cliente\n=> si no quiere ingresar un nombre digite ¡salir!')
+        nombre_cliente = input("Digite el nombre del nuevo cliente: ").capitalize()
+        if nombre_cliente == "Salir":
+            nombre_cliente = None
+            break
+    if not nombre_cliente:
+        sys.exit()
+    
+    return nombre_cliente
 
 
 def bienvenida():
