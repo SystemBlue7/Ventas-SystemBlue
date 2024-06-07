@@ -16,7 +16,7 @@ def mostrar_clientes():
 
     print('Este Es El Listado De Clientes En el Sistema')
     print("*" * 45, '\n')
-    for n, c in enumerate(clientes, start= 0):
+    for n, c in enumerate(clientes, start= 1):
         print(f'Cliente numero {n}: {c}')
     print("")
 
@@ -36,7 +36,7 @@ def eliminar_cliente(nombre):
     global clientes
 
     if nombre in clientes:
-        clientes = clientes.remove(nombre)
+        clientes.remove(nombre)
         print(f'Cliente {nombre} eliminado Exitosamente!!!\n')
     else:
         print(f'El cliente {nombre} no esta en el sistema\n')
@@ -110,6 +110,7 @@ if __name__ == "__main__":
         nombre_cliente = input('Que cliente desea Eliminar?\n=>  ').capitalize()
         print("")
         eliminar_cliente(nombre_cliente)
+        mostrar_clientes()
     elif dato == 5:
         nombre_cliente = input('Digite el nombre del cliente:\n=>').capitalize()
         print("")
