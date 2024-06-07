@@ -37,6 +37,14 @@ def eliminar_cliente(nombre):
         clientes = clientes.replace(nombre + ",", '')
         
 
+def actualizar_cliente(nombre_cliente):
+    lista_clientes = clientes.split(',')
+    lista_clientes.pop()
+    for cliente in lista_clientes:
+        if cliente != nombre_cliente:
+            continue
+        else:
+            return True
 def _coma_espacio():
     global clientes
 
@@ -62,6 +70,7 @@ def bienvenida():
         2. Ver Cliente
         3. Actualizar Cliente
         4. Eliminar Cliente
+        5. Buscar Cliente
     """
     print(bienvenida)
 
@@ -91,4 +100,14 @@ if __name__ == "__main__":
         nombre_cliente = input('Que cliente desea Eliminar?: ').capitalize()
         eliminar_cliente(nombre_cliente)
         _listado_clientes()
+    elif dato == 5:
+        nombre_cliente = _nuevo_cliente()
+        formato = actualizar_cliente(nombre_cliente)
+
+        if formato:
+            print('El nombre del cliente esta en la lista')
+        else:
+            mensaje()
+    else:
+        print('Opcion Incorrecta')
         
