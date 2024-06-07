@@ -1,32 +1,33 @@
 import sys
-clientes = "Cristian,David,Marcela,Hugo,"
+clientes = ['Cristian','David','Marcela','Hugo']
 
 def crear_cliente(nombre):
     global clientes
     
     if nombre not in clientes:
-        clientes += nombre
-        _coma_espacio()
-        print(f'El Cliente {nombre} fue agregado exitosamente! ')
+        clientes.append(nombre)
+        print(f'El Cliente {nombre} fue agregado exitosamente!\n')
     else:
-        print('El Cliente Ya Esta Creado en la lista')
+        print('=> El Cliente Ya Esta Creado en el Sistema')
 
 
 def mostrar_clientes():
     global clientes
 
-    clientes = clientes.split(',')
-    clientes.pop()
-    print('Este Es El Listado De Clientes Registrados\n')
-    for n, c in enumerate(clientes, start= 1):
+    print('Este Es El Listado De Clientes En el Sistema')
+    print("*" * 45, '\n')
+    for n, c in enumerate(clientes, start= 0):
         print(f'Cliente numero {n}: {c}')
+    print("")
 
 
 def actualizar_cliente(cliente1, cliente2):
     global clientes
 
     if cliente1 in clientes:
-        clientes = clientes.replace(cliente1, cliente2)
+        index = clientes.index(cliente1)
+        clientes[index] = cliente2
+        print(f'El Cliente {cliente1} se actualizo por {cliente2} exitosamente!!\n')
     else:
         mensaje()
 
@@ -35,33 +36,34 @@ def eliminar_cliente(nombre):
     global clientes
 
     if nombre in clientes:
-        clientes = clientes.replace(nombre + ",", '')
-        
+        clientes = clientes.remove(nombre)
+        print(f'Cliente {nombre} eliminado Exitosamente!!!\n')
+    else:
+        print(f'El cliente {nombre} no esta en el sistema\n')
 
-def actualizar_cliente(nombre_cliente):
-    lista_clientes = clientes.split(',')
-    lista_clientes.pop()
-    for cliente in lista_clientes:
-        if cliente != nombre_cliente:
-            continue
-        else:
-            return True
-def _coma_espacio():
-    global clientes
 
-    clientes += ","
+def buscar_cliente(nombre):
+    if nombre in clientes:
+        return True
+    else:
+        return False
 
 
 def mensaje():
-    print(f"El cliente no esta en la lista")
+    print(f"El cliente no esta en el Sistema")
+
+
+def mensaje_2():
+    print('=> Debe ingresar el nombre del Cliente\n=> si no quiere ingresar un nombre digite ¡salir!\n')
 
 
 def _nuevo_cliente():
     nombre_cliente = None
 
     while not nombre_cliente:
-        print('=> Debe ingresar el nombre del Cliente\n=> si no quiere ingresar un nombre digite ¡salir!')
-        nombre_cliente = input("Digite el nombre del nuevo cliente: ").capitalize()
+        mensaje_2()
+        nombre_cliente = input("Digite el nombre del nuevo cliente \n=> ").capitalize()
+        print("")
         if nombre_cliente == "Salir":
             nombre_cliente = None
             break
@@ -87,11 +89,6 @@ def bienvenida():
     print(bienvenida)
 
 
-def _listado_clientes():
-    global clientes
-    print(clientes)
-
-
 if __name__ == "__main__":
     bienvenida()
 
@@ -100,24 +97,28 @@ if __name__ == "__main__":
     if dato == 1:
         nombre_cliente = _nuevo_cliente()
         crear_cliente(nombre_cliente)
-        _listado_clientes()
+        mostrar_clientes()
     elif dato == 2:
         mostrar_clientes()
     elif dato == 3:
-        cliente_actualizar = input("Digite el cliente que quiere actualizar: ").capitalize()
+        cliente_actualizar = input("Digite el cliente que quiere actualizar: \n=> ").capitalize()
+        print("")
         nombre_cliente = _nuevo_cliente()
         actualizar_cliente(cliente_actualizar, nombre_cliente)
-        _listado_clientes()
+        mostrar_clientes()
     elif dato == 4:
-        nombre_cliente = input('Que cliente desea Eliminar?: ').capitalize()
+        nombre_cliente = input('Que cliente desea Eliminar?\n=>  ').capitalize()
+        print("")
         eliminar_cliente(nombre_cliente)
-        _listado_clientes()
     elif dato == 5:
-        nombre_cliente = _nuevo_cliente()
-        formato = actualizar_cliente(nombre_cliente)
+        nombre_cliente = input('Digite el nombre del cliente:\n=>').capitalize()
+        print("")
+        formato = buscar_cliente(nombre_cliente)
 
         if formato:
-            print('El nombre del cliente esta en la lista')
+            index = clientes.index(nombre_cliente)
+            print('¡El nombre del cliente esta en la lista!')
+            print(f'Cliente # {index}: {nombre_cliente}')  
         else:
             mensaje()
     else:
