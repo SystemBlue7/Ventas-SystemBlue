@@ -43,10 +43,9 @@ def mostrar_clientes():
 
 def actualizar_cliente(cliente1, cliente2):
     global clientes
-
-    if cliente1 in clientes:
-        index = clientes.index(cliente1)
-        clientes[index] = cliente2
+    print(len(clientes) - 1 >= cliente1)
+    if (len(clientes) - 1 >= cliente1):
+        clientes[cliente1] = cliente2
         print(f'El Cliente {cliente1} se actualizo por {cliente2} exitosamente!!\n')
     else:
         mensaje()
@@ -77,11 +76,11 @@ def mensaje_2():
     print('=> Debe ingresar el nombre del Cliente\n=> si no quiere ingresar un nombre digite ¡salir!\n')
 
 
-def _cliente_avanzado(nombre_cliente):
+def _cliente_avanzado(nombre_cliente, message = 'Cual es el Cliente? {}?\n=> '):
     datos = None
 
     while not datos:
-        datos = input(f'Cual es el {nombre_cliente}\n=>')
+        datos = input(message.format(nombre_cliente))
 
         return datos
 
@@ -141,9 +140,8 @@ if __name__ == "__main__":
     elif dato == 2:
         mostrar_clientes()
     elif dato == 3:
-        cliente_actualizar = input("Digite el cliente que quiere actualizar: \n=> ").capitalize()
-        print("")
-        nombre_cliente = _nuevo_cliente()
+        cliente_actualizar = int(_cliente_avanzado("id"))
+        nombre_cliente = _datos_cliente()
         actualizar_cliente(cliente_actualizar, nombre_cliente)
         mostrar_clientes()
     elif dato == 4:
