@@ -43,26 +43,25 @@ def mostrar_clientes():
 
 def actualizar_cliente(cliente1, cliente2):
     global clientes
-    print(len(clientes) - 1 >= cliente1)
-    if (len(clientes) - 1 >= cliente1):
+    if len(clientes) - 1 >= cliente1:
         clientes[cliente1] = cliente2
         print(f'El Cliente {cliente1} se actualizo por {cliente2} exitosamente!!\n')
     else:
         mensaje()
 
 
-def eliminar_cliente(nombre):
+def eliminar_cliente(id):
     global clientes
 
-    if nombre in clientes:
-        clientes.remove(nombre)
-        print(f'Cliente {nombre} eliminado Exitosamente!!!\n')
+    if len(clientes) -1 >= id:
+        clientes.pop(id)
+        print(f'Cliente {id} eliminado Exitosamente!!!\n')
     else:
-        print(f'El cliente {nombre} no esta en el sistema\n')
+        print(f'El cliente {id} no esta en el sistema\n')
 
 
-def buscar_cliente(nombre):
-    if nombre in clientes:
+def buscar_cliente(id):
+    if len(clientes) -1 >= id:
         return True
     else:
         return False
@@ -81,7 +80,7 @@ def _cliente_avanzado(nombre_cliente, message = 'Cual es el Cliente? {}?\n=> '):
 
     while not datos:
         datos = input(message.format(nombre_cliente))
-
+        print(datos)
         return datos
 
 
@@ -145,19 +144,17 @@ if __name__ == "__main__":
         actualizar_cliente(cliente_actualizar, nombre_cliente)
         mostrar_clientes()
     elif dato == 4:
-        nombre_cliente = input('Que cliente desea Eliminar?\n=>  ').capitalize()
+        nombre_cliente = int(input('Cual Id quieres eliminar?\n=>  '))
         print("")
         eliminar_cliente(nombre_cliente)
         mostrar_clientes()
     elif dato == 5:
-        nombre_cliente = input('Digite el nombre del cliente:\n=>').capitalize()
+        nombre_cliente = int(input('Cual Id quieres eliminar?\n=>  '))
         print("")
         formato = buscar_cliente(nombre_cliente)
-
         if formato:
-            index = clientes.index(nombre_cliente)
             print('¡El nombre del cliente esta en la lista!')
-            print(f'Cliente # {index}: {nombre_cliente}')  
+            print(clientes[nombre_cliente])
         else:
             mensaje()
     else:
