@@ -1,18 +1,29 @@
+import csv
 import sys
-clientes = [
-    {
-        'nombre': 'Cristian',
-        'empresa': 'Google',
-        'correo': 'cristian@google.com',
-        'cargo': 'Gerente',
-    },
-    {
-        'nombre': 'David',
-        'empresa': 'Amazon',
-        'correo': 'david@Amazon.com',
-        'cargo': 'Desarrollador',
-    }
-]
+import os 
+
+tabla_clientes = '.clientes.csv'
+claves_clientes = ['nombre', 'empresa', 'correo', 'cargo']
+clientes = []
+
+
+def _abrir_archivo():
+    with open(tabla_clientes, mode='r') as archivo:
+        leer = csv.DictReader(archivo, fieldnames=claves_clientes)
+
+        for i in leer:
+            clientes.append(leer)
+
+
+def _guardar_archivo():
+    tabla_temp = f'{tabla_clientes}.tmp'
+    with open(tabla_temp, mode='w') as archivo:
+        escribir = csv.DictWriter(archivo, fieldnames= claves_clientes)
+        escribir.writerows(clientes)
+
+        os.remove(tabla_clientes)
+        #archivo.close()
+        os.rename(tabla_temp, tabla_clientes)
 
 
 def crear_cliente(cliente):
@@ -26,19 +37,18 @@ def crear_cliente(cliente):
 
 
 def mostrar_clientes():
-    global clientes
 
     print('Este Es El Listado De Clientes En el Sistema')
     print("*" * 45, '\n')
     print('Id   '+ "Nombre   "+ "Empresa   "+ 'Correo   '+ 'Cargo')
-    for n, c in enumerate(clientes, start= 1):
+    for n, c in enumerate(clientes):
         print('{num} | {nombre} | {empresa} | {correo} | {cargo}'.format(
             num = n,
             nombre = c['nombre'],
             empresa = c['empresa'],
             correo = c['correo'],
             cargo = c['cargo']))
-    print("")
+    
 
 
 def actualizar_cliente(cliente1, cliente2):
@@ -75,7 +85,7 @@ def mensaje_2():
     print('=> Debe ingresar el nombre del Cliente\n=> si no quiere ingresar un nombre digite ¡salir!\n')
 
 
-def _cliente_avanzado(nombre_cliente, message = 'Cual es el Cliente? {}?\n=> '):
+def _cliente_avanzado(nombre_cliente, message = 'Cual es el {}?\n=> '):
     datos = None
 
     while not datos:
@@ -127,6 +137,7 @@ def bienvenida():
 
 
 if __name__ == "__main__":
+    _abrir_archivo()
     bienvenida()
 
     dato = int(input())
@@ -135,19 +146,16 @@ if __name__ == "__main__":
         cliente = _datos_cliente()
 
         crear_cliente(cliente)
-        mostrar_clientes()
     elif dato == 2:
         mostrar_clientes()
     elif dato == 3:
         cliente_actualizar = int(_cliente_avanzado("id"))
         nombre_cliente = _datos_cliente()
         actualizar_cliente(cliente_actualizar, nombre_cliente)
-        mostrar_clientes()
     elif dato == 4:
         nombre_cliente = int(input('Cual Id quieres eliminar?\n=>  '))
         print("")
         eliminar_cliente(nombre_cliente)
-        mostrar_clientes()
     elif dato == 5:
         nombre_cliente = int(input('Cual Id quieres eliminar?\n=>  '))
         print("")
@@ -159,4 +167,6 @@ if __name__ == "__main__":
             mensaje()
     else:
         print('Opcion Incorrecta')
+
+    _guardar_archivo()
         
