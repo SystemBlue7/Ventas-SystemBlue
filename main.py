@@ -12,7 +12,7 @@ def _abrir_archivo():
         leer = csv.DictReader(archivo, fieldnames=claves_clientes)
 
         for i in leer:
-            clientes.append(leer)
+            clientes.append(i)
 
 
 def _guardar_archivo():
@@ -22,7 +22,6 @@ def _guardar_archivo():
         escribir.writerows(clientes)
 
         os.remove(tabla_clientes)
-        #archivo.close()
         os.rename(tabla_temp, tabla_clientes)
 
 
